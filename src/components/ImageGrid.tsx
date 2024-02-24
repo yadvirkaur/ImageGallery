@@ -1,21 +1,28 @@
+/**
+ * A component that renders a grid of images fetched using the `useImages` hook.
+ * The grid is rendered based on whether the data page contains results or not.
+ * @returns JSX element representing the image grid.
+ */
+
 import { Box, SimpleGrid, Spinner, Text } from '@chakra-ui/react';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import useImages from '../hooks/useImages';
 import ImageCard from './ImageCard';
+import useImages from '../hooks/useImages';
 
-interface Props {
-  sortOrder: string;
-}
-
-const ImageGrid = ({ sortOrder }: Props) => {
-  const { data, error, isLoading, fetchNextPage, hasNextPage } =
-    useImages(sortOrder);
+const ImageGrid = () => {
+  const { data, error, isLoading, fetchNextPage, hasNextPage } = useImages();
 
   if (error) return <Text>{error.message}</Text>;
 
   const fetchedGamesCount =
-    data?.pages.reduce((total, page) => total + page.length, 0) || 0;
+    data?.pages.reduce((total, page) => {
+      if ('results' in page) {
+        return total + page.results.length;
+      } else {
+        return total + page.length;
+      }
+    }, 0) || 0;
 
   return (
     <InfiniteScroll
@@ -35,7 +42,7 @@ const ImageGrid = ({ sortOrder }: Props) => {
 
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>
-            {page.map((image) => (
+            {('results' in page ? page.results : page).map((image) => (
               <Box borderRadius={10} overflow={'hidden'} key={image.id}>
                 <ImageCard image={image} />
               </Box>
@@ -46,5 +53,4 @@ const ImageGrid = ({ sortOrder }: Props) => {
     </InfiniteScroll>
   );
 };
-
 export default ImageGrid;
