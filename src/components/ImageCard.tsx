@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody, Heading, Image } from '@chakra-ui/react';
+import { Card, Image } from '@chakra-ui/react';
 import { Photo } from '../hooks/useImages';
 import { Blurhash } from 'react-blurhash';
 
@@ -26,10 +26,9 @@ const ImageCard = ({ image }: Props) => {
         alt={image.alt_description}
         onLoad={() => setImageLoaded(true)}
         display={imageLoaded ? 'block' : 'none'}
+        height="300px"
+        objectFit="cover"
       />
-      <CardBody>
-        <Heading fontSize="2xl">{image.alt_description}</Heading>
-      </CardBody>
     </Card>
   );
 };

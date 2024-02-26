@@ -1,15 +1,19 @@
 import ImageGrid from './components/ImageGrid';
 import SortSelector from './components/SortSelector';
 import NavBar from './components/NavBar';
+import { Box } from '@chakra-ui/react';
 
-function App() {
+const App = () => {
   return (
     <>
       <NavBar />
-      <SortSelector />
+
+      <Box paddingLeft={10}>
+        <SortSelector />
+      </Box>
       <ImageGrid />
     </>
   );
-}
+};
 
 export default App;

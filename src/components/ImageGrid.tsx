@@ -35,7 +35,7 @@ const ImageGrid = () => {
     >
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-        spacing={6}
+        spacing={3}
         padding={10}
       >
         {isLoading && <p>Loading...</p>}
@@ -43,7 +43,12 @@ const ImageGrid = () => {
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>
             {('results' in page ? page.results : page).map((image) => (
-              <Box borderRadius={10} overflow={'hidden'} key={image.id}>
+              <Box
+                shadow="sm"
+                borderRadius={10}
+                overflow={'hidden'}
+                key={image.id}
+              >
                 <ImageCard image={image} />
               </Box>
             ))}
