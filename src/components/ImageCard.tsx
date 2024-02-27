@@ -11,8 +11,12 @@ interface Props {
 const ImageCard = ({ image }: Props) => {
   const [imageLoaded, setImageLoaded] = React.useState<boolean>(false);
   const [hovering, setHovering] = React.useState<boolean>(false);
+
   return (
     <Card
+      shadow="sm"
+      overflow={'hidden'}
+      key={image.id}
       position="relative"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
@@ -35,7 +39,8 @@ const ImageCard = ({ image }: Props) => {
         height="300px"
         objectFit="cover"
       />
-      <Like hovering={hovering} />
+
+      <Like hovering={hovering} image={image} />
     </Card>
   );
 };

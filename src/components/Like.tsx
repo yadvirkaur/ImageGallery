@@ -1,13 +1,41 @@
 import { Box } from '@chakra-ui/react';
-import { useState } from 'react';
+import React from 'react';
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
+import { Photo } from '../hooks/useImages';
 
-const Like = ({ hovering }: { hovering: boolean }) => {
-  const [liked, setLiked] = useState(false);
+interface Props {
+  hovering: boolean;
+  image: Photo;
+}
+const Like = ({ hovering, image }: Props) => {
+  const [likedImagesList, setLikedImageslist] = React.useState(() => {
+    const storedLikedImages = localStorage.getItem('likedImages');
+    return storedLikedImages ? JSON.parse(storedLikedImages) : [];
+  });
+
+  React.useEffect(() => {
+    localStorage.setItem('likedImages', JSON.stringify(likedImagesList));
+  }, [likedImagesList]);
+
+  const handleLikeClick = () => {
+    // setLiked(!liked);
+    setLikedImageslist((prevLikedImages: Photo[]) => {
+      if (prevLikedImages.find((likedImage) => likedImage.id === image.id)) {
+        return prevLikedImages.filter(
+          (likedImage) => likedImage.id !== image.id
+        );
+      } else {
+        return [...prevLikedImages, image];
+      }
+    });
+  };
+
+  const isLiked = likedImagesList.find(
+    (likedImage: Photo) => likedImage.id === image.id
+  );
+
   return (
     <div>
-      {/* <Like hovering={hovering} onClick={() => setLiked(!liked)} /> */}
-
       <Box
         position="absolute"
         top="5%"
@@ -18,9 +46,9 @@ const Like = ({ hovering }: { hovering: boolean }) => {
         opacity={hovering ? 1 : 0}
         transition="opacity 0.3s"
         zIndex="1"
-        onClick={() => setLiked(!liked)}
+        onClick={handleLikeClick}
       >
-        {liked ? <IoIosHeart color="red" /> : <IoIosHeartEmpty />}
+        {isLiked ? <IoIosHeart color="red" /> : <IoIosHeartEmpty />}
       </Box>
     </div>
   );
