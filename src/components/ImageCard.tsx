@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Image } from '@chakra-ui/react';
 import { Photo } from '../hooks/useImages';
 import { Blurhash } from 'react-blurhash';
+import Like from './Like';
 
 interface Props {
   image: Photo;
@@ -9,8 +10,13 @@ interface Props {
 
 const ImageCard = ({ image }: Props) => {
   const [imageLoaded, setImageLoaded] = React.useState<boolean>(false);
+  const [hovering, setHovering] = React.useState<boolean>(false);
   return (
-    <Card>
+    <Card
+      position="relative"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+    >
       {image.blur_hash && !imageLoaded && (
         <Blurhash
           hash={image.blur_hash}
@@ -29,6 +35,7 @@ const ImageCard = ({ image }: Props) => {
         height="300px"
         objectFit="cover"
       />
+      <Like hovering={hovering} />
     </Card>
   );
 };
