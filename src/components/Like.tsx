@@ -1,38 +1,28 @@
 import { Box } from '@chakra-ui/react';
-import React from 'react';
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 import { Photo } from '../hooks/useImages';
+import useLikesStore from '../likesStore';
 
 interface Props {
   hovering: boolean;
   image: Photo;
 }
 const Like = ({ hovering, image }: Props) => {
-  const [likedImagesList, setLikedImageslist] = React.useState(() => {
-    const storedLikedImages = localStorage.getItem('likedImages');
-    return storedLikedImages ? JSON.parse(storedLikedImages) : [];
-  });
+  const likedImages = useLikesStore((s) => s.likedImages);
+  const addLikedImage = useLikesStore((s) => s.addLikedImage);
+  const removeLikedImage = useLikesStore((s) => s.removeLikedImage);
 
-  React.useEffect(() => {
-    localStorage.setItem('likedImages', JSON.stringify(likedImagesList));
-  }, [likedImagesList]);
-
-  const handleLikeClick = () => {
-    // setLiked(!liked);
-    setLikedImageslist((prevLikedImages: Photo[]) => {
-      if (prevLikedImages.find((likedImage) => likedImage.id === image.id)) {
-        return prevLikedImages.filter(
-          (likedImage) => likedImage.id !== image.id
-        );
-      } else {
-        return [...prevLikedImages, image];
-      }
-    });
-  };
-
-  const isLiked = likedImagesList.find(
+  const isLiked = likedImages.find(
     (likedImage: Photo) => likedImage.id === image.id
   );
+
+  const handleLikeClick = () => {
+    if (isLiked) {
+      removeLikedImage(image.id);
+    } else {
+      addLikedImage(image);
+    }
+  };
 
   return (
     <div>

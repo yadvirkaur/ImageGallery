@@ -22,9 +22,14 @@ export default {
     project: ['./tsconfig.json', './tsconfig.node.json'],
     tsconfigRootDir: __dirname,
   },
-}
+};
 ```
 
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+/----------------------------------------------------------------
+
+If we add the state (likedImagesList) and a function (handleLikeClick) to parent (App or Home) component to manage the liked images. We need to pass these down to the ImageGrid component as props. We'll need to update the ImageGrid component to accept these props and pass them down to the ImageCard component, which in turn will pass them to the Like component. This is Prop Drilling.
+So instead of this we'll go with Zustand Store.
