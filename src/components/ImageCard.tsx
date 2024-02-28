@@ -3,6 +3,7 @@ import { Card, Image } from '@chakra-ui/react';
 import { Photo } from '../hooks/useImages';
 import { Blurhash } from 'react-blurhash';
 import Like from './Like';
+import Download from './Download';
 
 interface Props {
   image: Photo;
@@ -41,6 +42,7 @@ const ImageCard = ({ image }: Props) => {
       />
 
       <Like hovering={hovering} image={image} />
+      <Download imageDownloadLink={image.links.download} hovering={hovering} />
     </Card>
   );
 };

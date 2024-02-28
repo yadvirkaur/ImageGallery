@@ -25,6 +25,9 @@ export interface Photo {
   urls: {
     thumb: string;
   };
+  links: {
+    download: string;
+  };
 }
 
 const useImages = () => {

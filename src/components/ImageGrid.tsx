@@ -43,7 +43,7 @@ const ImageGrid = () => {
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>
             {('results' in page ? page.results : page).map((image) => (
-              <ImageCard image={image} />
+              <ImageCard key={image.id} image={image} />
             ))}
           </React.Fragment>
         ))}

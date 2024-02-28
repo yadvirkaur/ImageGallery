@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 import { Photo } from '../hooks/useImages';
 import useLikesStore from '../likesStore';
@@ -26,7 +26,7 @@ const Like = ({ hovering, image }: Props) => {
 
   return (
     <div>
-      <Box
+      <Button
         position="absolute"
         top="5%"
         right="5%"
@@ -39,7 +39,7 @@ const Like = ({ hovering, image }: Props) => {
         onClick={handleLikeClick}
       >
         {isLiked ? <IoIosHeart color="red" /> : <IoIosHeartEmpty />}
-      </Box>
+      </Button>
     </div>
   );
 };
