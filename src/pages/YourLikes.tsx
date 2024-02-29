@@ -7,16 +7,16 @@ const YourLikes = () => {
   const likedImages = likedImagesString ? JSON.parse(likedImagesString) : [];
 
   return (
-    <Box padding={10}>
-      <Text fontWeight={500} marginBottom={2}>
+    <Box>
+      <Text className="image-header" fontWeight={500} marginBottom={2}>
         {likedImages.length === 0 ? '' : 'Your Liked Images'}
       </Text>
 
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={5}>
+      <div className="image-grid">
         {likedImages.map((image: Photo) => (
           <ImageCard key={image.id} image={image} />
         ))}
-      </SimpleGrid>
+      </div>
     </Box>
   );
 };

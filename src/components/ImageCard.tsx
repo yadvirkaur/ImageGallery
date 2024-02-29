@@ -16,8 +16,6 @@ const ImageCard = ({ image }: Props) => {
   return (
     <Card
       shadow="sm"
-      overflow={'hidden'}
-      key={image.id}
       position="relative"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}

@@ -4,7 +4,7 @@
  * @returns JSX element representing the image grid.
  */
 
-import { SimpleGrid, Spinner, Text } from '@chakra-ui/react';
+import { Box, Spinner, Text } from '@chakra-ui/react';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ImageCard from './ImageCard';
@@ -33,21 +33,19 @@ const ImageGrid = () => {
       next={() => fetchNextPage()}
       loader={<Spinner />}
     >
-      <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-        spacing={5}
-        padding={10}
-      >
+      <div className="image-grid">
         {isLoading && <p>Loading...</p>}
 
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>
             {('results' in page ? page.results : page).map((image) => (
-              <ImageCard key={image.id} image={image} />
+              <Box key={image.id} overflow={'hidden'}>
+                <ImageCard key={image.id} image={image} />
+              </Box>
             ))}
           </React.Fragment>
         ))}
-      </SimpleGrid>
+      </div>
     </InfiniteScroll>
   );
 };

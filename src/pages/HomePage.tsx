@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const App = () => {
   return (
     <>
-      <HStack paddingLeft={10} spacing="24px">
+      <HStack className="image-header" spacing="24px">
         <SortSelector />
         <Link to={'/likes'}>
           <Button>Your Likes</Button>
