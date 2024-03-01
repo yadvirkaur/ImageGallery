@@ -10,8 +10,12 @@
 .image-grid {
   display: grid;
   gap: 15px;
-  grid-template-columns: repeat(2, 1fr);
   margin-block: 30px;
+}
+@media (min-width: 501px) {
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (min-width: 901px) {

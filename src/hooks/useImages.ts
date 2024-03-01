@@ -20,10 +20,12 @@ interface FetchResults<T> {
 //example: https://api.unsplash.com/photos/?&client_id=oCrtWPWTTAVT50aAEeIFIrmHErUCNse4GZSwkHif2xk
 export interface Photo {
   id: string;
+  width: number;
+  height: number;
   alt_description: string;
   blur_hash: string;
   urls: {
-    thumb: string;
+    raw: string;
   };
   links: {
     download: string;
